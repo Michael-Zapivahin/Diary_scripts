@@ -17,6 +17,17 @@ python manage.py shell
 
 Импортируем функции
 
+- Получить пердмет
+
+```
+from scripts import get_subject  
+```
+
+- Получить ученика
+```
+from scripts import get_student  
+```
+
 - Удаление замечаний
 
 ```
