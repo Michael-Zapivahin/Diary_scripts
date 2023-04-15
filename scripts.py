@@ -5,10 +5,10 @@ def get_subject(subject_name, year_of_study=None):
     from datacenter.models import Subject
     try:
         subject = Subject.objects.get(title=subject_name, year_of_study=year_of_study)
-    except models.ObjectDoesNotExist:
+    except Subject.DoesNotExist:
         print(f'Предмет {subject_name} {year_of_study} класс не найден')
         return None
-    except models.MultipleObjectsReturned:
+    except Subject.MultipleObjectsReturned:
         print(f'Найдено много предметов {subject_name} {year_of_study} класс')
         return None
     return subject
