@@ -1,14 +1,14 @@
 
 
 def get_subject(subject_name, year_of_study=None):
+    from django.db import models
     from datacenter.models import Subject
-    from django.core import exceptions
     try:
         subject = Subject.objects.get(title=subject_name, year_of_study=year_of_study)
-    except exceptions.ObjectDoesNotExist:
+    except models.ObjectDoesNotExist:
         print(f'Предмет {subject_name} {year_of_study} класс не найден')
         return None
-    except exceptions.MultipleObjectsReturned:
+    except models.MultipleObjectsReturned:
         print(f'Найдено много предметов {subject_name} {year_of_study} класс')
         return None
     return subject
@@ -38,14 +38,16 @@ def create_commendation(student_name, subject_name):
     Commendation.objects.create(text=random.choice(words), created=lesson.date, schoolkid=get_student(student_name), subject=subject, teacher=lesson.teacher)
 
 
-def update_mark(student_name, subject_name, class_number):
+def update_mark(student_name, subject_name):
     from datacenter.models import Mark
-    subject = get_subject(subject_name, class_number)
-    Mark.objects.filter(schoolkid=get_student(student_name), subject=subject, points__in=[2, 3]).update(points=5)
+    student = get_student(student_name)
+    subject = get_subject(subject_name, student.year_of_study)
+    Mark.objects.filter(schoolkid=student, subject=subject, points__in=[2, 3]).update(points=5)
 
 
 
 def delete_chastisements(student_name):
     from datacenter.models import Chastisement
     Chastisement.objects.filter(schoolkid=get_student(student_name)).delete()
+
 
