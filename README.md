@@ -48,7 +48,7 @@ from scripts import create_Commendation
 
 Запускаем функции:
 
-update_mark('Белозеров Авдей Федотович', 'Музыка', 6)
+update_mark('Белозеров Авдей Федотович', 'Музыка')
 
 delete_Chastisements('Белозеров Авдей Федотович')
 
